@@ -1,13 +1,19 @@
 import { View, Text, Button, TextInput, TouchableOpacity } from 'react-native'
 import React, { useState } from 'react'
-
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const auth = getAuth()
     const signUp = async () => {
-
+       const after = await createUserWithEmailAndPassword(auth, email, password)
+       console.log(after)
+       alert('Account created successfully')
     }
-    const signIn = async () => { }
+    const signIn = async () => { 
+        const user = await signInWithEmailAndPassword(auth, email, password)
+        console.log(user)
+    }
 
     return (
         <View className='flex flex-col justify-center items-center w-full h-full'>
